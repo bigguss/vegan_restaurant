@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
+import ReservationSystem from '@/components/ReservationSystem';
 import { Star, MapPin, Clock, Phone, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -174,9 +175,9 @@ export default function Home() {
             >
               <div className='absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-3xl' />
               <img
-                src='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/hero-background-botanical-Nxkzgd7zyE826NnJzdhNA4.webp'
-                alt='Our Story'
-                className='relative rounded-2xl shadow-lg w-full'
+                src='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/nirvana-team-kitchen_3de12a90.png'
+                alt='Our Story - Nirvana Team'
+                className='relative rounded-2xl shadow-lg w-full object-cover'
               />
             </motion.div>
           </div>
@@ -299,7 +300,10 @@ export default function Home() {
       </section>
 
       {/* Reservations Section */}
-      <section id='reservations' className='py-20 md:py-32 bg-background'>
+      <ReservationSystem />
+
+      {/* Visit Info Section */}
+      <section className='py-20 md:py-32 bg-background'>
         <div className='container mx-auto'>
           <div className='grid md:grid-cols-2 gap-12 items-center'>
             <motion.div
