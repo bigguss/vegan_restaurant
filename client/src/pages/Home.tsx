@@ -153,7 +153,7 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className='text-4xl md:text-5xl font-serif font-bold text-foreground mb-6'>
-                {t('ourStoryTitle')} <span className='text-primary'>Story</span>
+                {t('ourStoryTitle')} <span className='text-primary'></span>
               </h2>
               <div className='organic-divider mb-8' />
               <p className='text-lg text-muted-foreground mb-4 leading-relaxed'>
