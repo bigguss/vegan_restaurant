@@ -19,7 +19,15 @@ interface ReservationData {
 export default function ReservationSystem() {
   const { language } = useLanguage();
   const t = (key: keyof typeof import('@/lib/translations').translations.en) => getTranslation(language, key);
-  const createReservation = trpc.reservations.create.useMutation();
+  const utils = trpc.useUtils();
+  const createReservation = trpc.reservations.create.useMutation({
+    onSuccess: () => {
+      // Invalidate availability query to refetch updated data
+      if (selectedDate) {
+        utils.reservations.getAvailability.invalidate({ date: selectedDate });
+      }
+    },
+  });
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const { data: availability = {} } = trpc.reservations.getAvailability.useQuery(
