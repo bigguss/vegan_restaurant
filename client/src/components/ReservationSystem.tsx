@@ -5,6 +5,8 @@ import { Card } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight, Clock, Users } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslation } from '@/lib/translations';
+import { trpc } from '@/lib/trpc';
+import { toast } from 'sonner';
 
 interface ReservationData {
   date: string;
@@ -17,6 +19,7 @@ interface ReservationData {
 export default function ReservationSystem() {
   const { language } = useLanguage();
   const t = (key: keyof typeof import('@/lib/translations').translations.en) => getTranslation(language, key);
+  const createReservation = trpc.reservations.create.useMutation();
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -91,21 +94,35 @@ export default function ReservationSystem() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedDate || !selectedTime || !formData.name || !formData.phone) {
-      alert(language === 'lv' ? 'Lūdzu, aizpildiet visus laukus' : 'Please fill in all fields');
+      toast.error(language === 'lv' ? 'Lūdzu, aizpildiet visus laukus' : 'Please fill in all fields');
       return;
     }
-    // Here you would typically send the reservation to your backend
-    console.log('Reservation submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setSelectedDate(null);
-      setSelectedTime(null);
-      setFormData({ date: '', time: '', name: '', phone: '', guests: 2 });
-    }, 3000);
+
+    try {
+      const result = await createReservation.mutateAsync({
+        date: selectedDate,
+        time: selectedTime,
+        name: formData.name,
+        phone: formData.phone,
+        guests: formData.guests,
+      });
+
+      toast.success(result.message);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setSelectedDate(null);
+        setSelectedTime(null);
+        setFormData({ date: '', time: '', name: '', phone: '', guests: 2 });
+      }, 3000);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to submit reservation';
+      toast.error(errorMessage);
+      console.error('Reservation error:', error);
+    }
   };
 
   const monthNames = language === 'lv'
@@ -299,13 +316,13 @@ export default function ReservationSystem() {
                   </div>
 
                   <div className='pt-4'>
-                    <Button
-                      type='submit'
-                      className='w-full button-organic'
-                      disabled={!selectedDate || !selectedTime}
-                    >
-                      {language === 'lv' ? 'Rezervēt' : 'Reserve'}
-                    </Button>
+                  <Button
+                    type='submit'
+                    className='w-full button-organic'
+                    disabled={!selectedDate || !selectedTime || createReservation.isPending}
+                  >
+                    {createReservation.isPending ? (language === 'lv' ? 'Sūta...' : 'Submitting...') : (language === 'lv' ? 'Rezervēt' : 'Reserve')}
+                  </Button>
                   </div>
 
                   {selectedDate && selectedTime && (
