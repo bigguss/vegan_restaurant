@@ -120,7 +120,7 @@ export default function ReservationSystem() {
         time: selectedTime,
         name: formData.name,
         phone: formData.phone,
-        guests: formData.guests,
+        guests: Number(formData.guests),
       });
 
       toast.success(result.message);
