@@ -118,7 +118,7 @@ export default function Home() {
       {/* Hero Section with Scroll Expansion */}
       <ScrollExpandMedia
         mediaType='image'
-        mediaSrc='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/hero-Buddha-bowl-FzinT5wesLzSCokA38ikoq.webp'
+        mediaSrc='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/vegan-sushi-hero_7c2cd026.png'
         bgImageSrc='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/hero-background-botanical-Nxkzgd7zyE826NnJzdhNA4.webp'
         title='Nirvana'
         date='Family-Run Plant-Based Cuisine'
