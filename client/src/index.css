@@ -43,39 +43,40 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
+  /* Organic Minimalism: Sage green, warm whites, terracotta accents */
+  --primary: oklch(0.42 0.12 155); /* Sage green */
+  --primary-foreground: oklch(0.98 0 0); /* Warm white */
+  --sidebar-primary: oklch(0.42 0.12 155);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --chart-1: oklch(0.42 0.12 155);
+  --chart-2: oklch(0.55 0.15 155);
+  --chart-3: oklch(0.48 0.13 155);
+  --chart-4: oklch(0.42 0.12 155);
+  --chart-5: oklch(0.38 0.11 155);
+  --radius: 0.5rem;
+  --background: oklch(0.98 0.002 65); /* Warm white background */
+  --foreground: oklch(0.2 0.01 65); /* Warm charcoal */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.2 0.01 65);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
+  --popover-foreground: oklch(0.2 0.01 65);
+  --secondary: oklch(0.6 0.08 155); /* Lighter sage */
+  --secondary-foreground: oklch(0.2 0.01 65);
+  --muted: oklch(0.92 0.002 65); /* Light gray */
+  --muted-foreground: oklch(0.55 0.01 65); /* Medium gray */
+  --accent: oklch(0.62 0.15 35); /* Terracotta */
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --border: oklch(0.9 0.002 65); /* Subtle border */
+  --input: oklch(0.95 0.001 65);
+  --ring: oklch(0.42 0.12 155);
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.2 0.01 65);
+  --sidebar-accent: oklch(0.62 0.15 35);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.9 0.002 65);
+  --sidebar-ring: oklch(0.42 0.12 155);
 }
 
 .dark {
@@ -114,6 +115,15 @@
 }
 
 @layer base {
+  /* Typography: Playfair Display for headings, Inter for body */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -134,6 +144,30 @@
 }
 
 @layer components {
+  /* Organic minimalism design tokens */
+  .text-display {
+    @apply font-serif text-3xl font-bold tracking-tight;
+  }
+  
+  .text-heading {
+    @apply font-serif text-2xl font-semibold;
+  }
+  
+  .text-subheading {
+    @apply font-serif text-xl font-semibold;
+  }
+  
+  .organic-divider {
+    @apply h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .button-organic {
+    @apply px-6 py-3 rounded-md bg-primary text-primary-foreground font-medium transition-all duration-300 hover:shadow-md hover:scale-105 active:scale-95;
+  }
   /**
    * Custom container utility that centers content and adds responsive padding.
    *
