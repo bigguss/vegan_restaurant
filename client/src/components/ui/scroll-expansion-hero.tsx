@@ -269,7 +269,7 @@ const ScrollExpandMedia = ({
                 >
                   {title && (
                     <h1 className='text-3xl md:text-5xl font-serif font-bold mb-2'>
-                      <span className='text-accent'>{firstWord}</span>{' '}
+                      <span className='text-accent' style={{color: '#cddbd5', fontSize: '100px', fontWeight: '600'}}>{firstWord}</span>{' '}
                       {restOfTitle}
                     </h1>
                   )}
