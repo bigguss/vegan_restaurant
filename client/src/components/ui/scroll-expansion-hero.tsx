@@ -210,7 +210,7 @@ const ScrollExpandMedia = ({
                       className='absolute inset-0 bg-black/30 rounded-xl'
                       initial={{ opacity: 0.7 }}
                       animate={{ opacity: 0.5 - scrollProgress * 0.3 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.2 }} style={{opacity: '0.8'}}
                     />
                   </div>
                 ) : (
