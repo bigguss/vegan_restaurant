@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, reservations, InsertReservation } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,45 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export async function createReservation(data: InsertReservation) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  const result = await db.insert(reservations).values(data);
+  return result;
+}
+
+export async function getAvailabilityForDate(dateStr: string) {
+  const db = await getDb();
+  if (!db) {
+    return {};
+  }
+
+  try {
+    const result = await db
+      .select({
+        reservationTime: reservations.reservationTime,
+        totalGuests: sql<number>`SUM(${reservations.guestCount})`,
+      })
+      .from(reservations)
+      .where(
+        and(
+          sql`DATE(${reservations.reservationDate}) = ${dateStr}`,
+          eq(reservations.status, "pending")
+        )
+      )
+      .groupBy(reservations.reservationTime);
+
+    const availability: Record<string, number> = {};
+    result.forEach((row) => {
+      availability[row.reservationTime] = row.totalGuests || 0;
+    });
+
+    return availability;
+  } catch (error) {
+    console.error("[Database] Failed to get availability:", error);
+    return {};
+  }
+}

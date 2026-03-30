@@ -20,9 +20,12 @@ export default function ReservationSystem() {
   const { language } = useLanguage();
   const t = (key: keyof typeof import('@/lib/translations').translations.en) => getTranslation(language, key);
   const createReservation = trpc.reservations.create.useMutation();
-
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const { data: availability = {} } = trpc.reservations.getAvailability.useQuery(
+    { date: selectedDate || '' },
+    { enabled: !!selectedDate }
+  );
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [formData, setFormData] = useState<ReservationData>({
     date: '',
@@ -47,6 +50,16 @@ export default function ReservationSystem() {
   };
 
   const timeSlots = generateTimeSlots();
+
+  const getAvailabilityStatus = (time: string) => {
+    const booked = (availability as Record<string, number>)[time] || 0;
+    const available = 20 - booked;
+
+    if (available <= 0) return { status: 'full', color: 'bg-red-500', label: 'Full' };
+    if (available <= 5) return { status: 'orange', color: 'bg-orange-500', label: `${available} left` };
+    if (available <= 10) return { status: 'yellow', color: 'bg-yellow-500', label: `${available} left` };
+    return { status: 'available', color: 'bg-green-500', label: `${available} left` };
+  };
 
   // Generate calendar days for current month
   const getDaysInMonth = (date: Date) => {
@@ -223,20 +236,36 @@ export default function ReservationSystem() {
                 <Clock className='w-5 h-5 text-primary' />
                 {language === 'lv' ? 'Laiks' : 'Time'}
               </h3>
-              <div className='grid grid-cols-2 gap-2 max-h-96 overflow-y-auto'>
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    onClick={() => handleTimeSelect(time)}
-                    className={`p-3 rounded-lg text-sm font-medium transition ${
-                      selectedTime === time
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary hover:bg-secondary/80 text-foreground'
-                    }`}
-                  >
-                    {time}
-                  </button>
-                ))}
+              <div className='grid grid-cols-2 gap-3 max-h-96 overflow-y-auto'>
+                {timeSlots.map((time) => {
+                  const status = getAvailabilityStatus(time);
+                  const isDisabled = status.status === 'full';
+                  return (
+                    <button
+                      key={time}
+                      onClick={() => !isDisabled && handleTimeSelect(time)}
+                      disabled={isDisabled}
+                      className={`p-3 rounded-lg text-sm font-medium transition ${
+                        isDisabled
+                          ? 'bg-red-100 text-red-700 cursor-not-allowed opacity-50'
+                          : selectedTime === time
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-secondary hover:bg-secondary/80 text-foreground'
+                      }`}
+                    >
+                      <div className='flex flex-col gap-1'>
+                        <span>{time}</span>
+                        <div className='w-full h-2 bg-gray-200 rounded-full overflow-hidden'>
+                          <div
+                            className={`h-full ${status.color}`}
+                            style={{ width: `${Math.min((((availability as Record<string, number>)[time] || 0) / 20) * 100, 100)}%` }}
+                          />
+                        </div>
+                        <span className='text-xs opacity-75'>{status.label}</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
               <p className='text-xs text-muted-foreground mt-4'>
                 {language === 'lv' ? 'Katrs laika slots ir 75 minūtes' : 'Each time slot is 75 minutes'}

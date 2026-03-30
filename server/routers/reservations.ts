@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { publicProcedure, router } from '../_core/trpc';
 import { notifyOwner } from '../_core/notification';
+import { createReservation, getAvailabilityForDate } from '../db';
 
 const reservationSchema = z.object({
   date: z.string().describe('Reservation date in YYYY-MM-DD format'),
@@ -17,6 +18,25 @@ export const reservationsRouter = router({
     .input(reservationSchema)
     .mutation(async ({ input }) => {
       try {
+        // Check availability first
+        const availability = await getAvailabilityForDate(input.date);
+        const bookedGuests = availability[input.time] || 0;
+        const totalGuests = bookedGuests + input.guests;
+
+        if (totalGuests > 20) {
+          throw new Error('This time slot is fully booked. Please select another time.');
+        }
+
+        // Save reservation to database
+        await createReservation({
+          reservationDate: new Date(input.date),
+          reservationTime: input.time,
+          guestName: input.name,
+          guestPhone: input.phone,
+          guestCount: input.guests,
+          status: 'pending',
+        });
+
         // Format the reservation details for notification
         const reservationDetails = `
 Date: ${input.date}
@@ -48,7 +68,19 @@ Number of Guests: ${input.guests}
         };
       } catch (error) {
         console.error('[Reservations] Error processing reservation:', error);
-        throw new Error('Failed to process reservation. Please try again.');
+        throw error instanceof Error ? error : new Error('Failed to process reservation. Please try again.');
+      }
+    }),
+
+  getAvailability: publicProcedure
+    .input(z.object({ date: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        const availability = await getAvailabilityForDate(input.date);
+        return availability;
+      } catch (error) {
+        console.error('[Reservations] Error fetching availability:', error);
+        return {};
       }
     }),
 });
