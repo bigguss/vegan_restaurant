@@ -95,7 +95,7 @@ export default function Home() {
         <div className='container mx-auto flex justify-between items-center h-16'>
           <a href='#' className='flex items-center gap-3 hover:opacity-80 transition-opacity'>
             <img
-              src='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/nirvana-logo-SRDMJWpBvmMeNVUz2dUWBY.webp'
+              src='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/nirvana-logo-original_97edb355.png'
               alt='Nirvana Logo'
               className='w-10 h-10'
             />
@@ -448,7 +448,7 @@ export default function Home() {
             <div>
               <div className='flex items-center gap-2 mb-4'>
                 <img
-                  src='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/nirvana-logo-SRDMJWpBvmMeNVUz2dUWBY.webp'
+                  src='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/nirvana-logo-original_97edb355.png'
                   alt='Nirvana'
                   className='w-8 h-8'
                 />
