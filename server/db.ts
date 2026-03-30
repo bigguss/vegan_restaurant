@@ -114,7 +114,7 @@ export async function getAvailabilityForDate(dateStr: string) {
       .from(reservations)
       .where(
         and(
-          sql`DATE(${reservations.reservationDate}) = ${dateStr}`,
+          eq(reservations.reservationDate, new Date(dateStr)),
           eq(reservations.status, "pending")
         )
       )
