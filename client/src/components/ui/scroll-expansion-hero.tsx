@@ -269,12 +269,12 @@ const ScrollExpandMedia = ({
                 >
                   {title && (
                     <h1 className='text-3xl md:text-5xl font-serif font-bold mb-2'>
-                      <span className='text-accent' style={{color: '#cddbd5', fontSize: '100px', fontWeight: '600'}}>{firstWord}</span>{' '}
+                      <span className='text-accent' style={{color: '#ffffff', fontSize: '100px', fontWeight: '600'}}>{firstWord}</span>{' '}
                       {restOfTitle}
                     </h1>
                   )}
                   {date && (
-                    <p className='text-white/70 text-sm md:text-base'>{date}</p>
+                    <p className='text-white/70 text-sm md:text-base' style={{fontSize: '20px'}}>{date}</p>
                   )}
                 </motion.div>
               )}
