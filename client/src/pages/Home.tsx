@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 import { Star, MapPin, Clock, Phone, ExternalLink } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { getTranslation } from '@/lib/translations';
 
 /**
  * Design Philosophy: Organic Minimalism with Botanical Elegance
@@ -13,44 +16,48 @@ import { Star, MapPin, Clock, Phone, ExternalLink } from 'lucide-react';
  * - Focus on premium, authentic plant-based dining experience
  * 
  * Restaurant: Nirvana - Family-run plant-based food cafe in Riga
+ * Language Support: Latvian (default) and English
  */
 
 export default function Home() {
+  const { language } = useLanguage();
+  const t = (key: keyof typeof import('@/lib/translations').translations.en) => getTranslation(language, key);
+  
   const [activeTab, setActiveTab] = useState('all');
 
   const menuItems = [
     {
       id: 1,
-      name: 'Buddha Bowl',
+      nameKey: 'buddhaBowl' as const,
+      descKey: 'buddhaBowlDesc' as const,
       category: 'mains',
-      description: 'Quinoa, roasted chickpeas, avocado, tahini drizzle, fresh vegetables',
       price: '€12',
       image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/hero-Buddha-bowl-FzinT5wesLzSCokA38ikoq.webp',
       rating: 4.8,
     },
     {
       id: 2,
-      name: 'Cashew Pasta',
+      nameKey: 'cashewPasta' as const,
+      descKey: 'cashewPastaDesc' as const,
       category: 'mains',
-      description: 'Creamy cashew sauce, fresh basil, cherry tomatoes, pine nuts',
       price: '€14',
       image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/menu-dish-pasta-GvgRqYGEj8SWE8Ej6ahiiz.webp',
       rating: 4.9,
     },
     {
       id: 3,
-      name: 'Seasonal Salad',
+      nameKey: 'seasonalSalad' as const,
+      descKey: 'seasonalSaladDesc' as const,
       category: 'salads',
-      description: 'Mixed greens, roasted beets, candied walnuts, citrus vinaigrette',
       price: '€11',
       image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/menu-dish-salad-nDQrzBj3aAyYzotXV5woB.webp',
       rating: 4.7,
     },
     {
       id: 4,
-      name: 'Chocolate Mousse',
+      nameKey: 'chocolateMousse' as const,
+      descKey: 'chocolateMousseDesc' as const,
       category: 'desserts',
-      description: 'Vegan chocolate mousse with fresh berries and mint',
       price: '€8',
       image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/menu-dish-dessert-caFtUe8qeDoqknTXaLeH7T.webp',
       rating: 4.9,
@@ -60,26 +67,26 @@ export default function Home() {
   const reviews = [
     {
       id: 1,
-      name: 'Ahimsa Kerp',
+      nameKey: 'ahimsaKerp' as const,
       rating: 5,
-      text: 'This little slice of Nirvana really lives up to the name. There\'s a cozy atmosphere, chill music, great tea, awesome gluten free cakes, and rather huge portions.',
-      date: '1 month ago',
+      textKey: 'review1' as const,
+      dateKey: 'oneMonthAgo' as const,
       source: 'Google',
     },
     {
       id: 2,
-      name: 'Madeleine Soukup',
+      nameKey: 'madeleineSoukup' as const,
       rating: 5,
-      text: 'This place is AMAZING, words cannot describe how much I love it. They have three daily options for main dishes and you can also mix it, and several cake options.',
-      date: '8 months ago',
+      textKey: 'review2' as const,
+      dateKey: 'eightMonthsAgo' as const,
       source: 'Google',
     },
     {
       id: 3,
-      name: 'Aitalina Struchkova',
+      nameKey: 'aitalinaSruchkova' as const,
       rating: 5,
-      text: 'I liked Nirvana before for their conscious approach towards nutrition, spiritual ambiance, and overall quality offering of food. Highly recommend!',
-      date: '6 months ago',
+      textKey: 'review3' as const,
+      dateKey: 'sixMonthsAgo' as const,
       source: 'Google',
     },
   ];
@@ -87,6 +94,13 @@ export default function Home() {
   const filteredMenu = activeTab === 'all' 
     ? menuItems 
     : menuItems.filter(item => item.category === activeTab);
+
+  const categoryLabels = {
+    all: t('all'),
+    mains: t('mains'),
+    salads: t('salads'),
+    desserts: t('desserts'),
+  };
 
   return (
     <div className='min-h-screen bg-background text-foreground'>
@@ -99,19 +113,22 @@ export default function Home() {
               alt='Nirvana Logo'
               className='w-10 h-10'
             />
-            <span className='font-serif text-xl font-bold text-foreground hidden sm:inline'>Nirvana</span>
+            <span className='font-serif text-xl font-bold text-foreground hidden sm:inline'>{t('nirvana')}</span>
           </a>
           
           <div className='hidden md:flex gap-8'>
-            <a href='#story' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>Our Story</a>
-            <a href='#menu' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>Menu</a>
-            <a href='#reservations' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>Reservations</a>
-            <a href='#reviews' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>Reviews</a>
+            <a href='#story' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>{t('ourStory')}</a>
+            <a href='#menu' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>{t('menu')}</a>
+            <a href='#reservations' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>{t('reservations')}</a>
+            <a href='#reviews' className='text-sm font-medium text-foreground hover:text-primary transition-colors'>{t('reviews')}</a>
           </div>
 
-          <Button variant='outline' size='sm' className='hidden md:inline-flex'>
-            Reserve
-          </Button>
+          <div className='flex items-center gap-3'>
+            <LanguageSwitcher />
+            <Button variant='outline' size='sm' className='hidden md:inline-flex'>
+              {t('reserve')}
+            </Button>
+          </div>
         </div>
       </nav>
 
@@ -120,9 +137,9 @@ export default function Home() {
         mediaType='image'
         mediaSrc='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/vegan-sushi-hero_7c2cd026.png'
         bgImageSrc='https://d2xsxph8kpxj0f.cloudfront.net/310519663494463894/8wScqXQdf8HxcGQYC3hf4A/hero-background-botanical-Nxkzgd7zyE826NnJzdhNA4.webp'
-        title='Nirvana'
-        date='Family-Run Plant-Based Cuisine'
-        scrollToExpand='Scroll to explore'
+        title={t('nirvana')}
+        date={t('familyRunPlantBased')}
+        scrollToExpand={t('scrollToExplore')}
       />
 
       {/* Our Story Section */}
@@ -136,16 +153,16 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className='text-4xl md:text-5xl font-serif font-bold text-foreground mb-6'>
-                Our <span className='text-primary'>Story</span>
+                {t('ourStoryTitle')} <span className='text-primary'>Story</span>
               </h2>
               <div className='organic-divider mb-8' />
               <p className='text-lg text-muted-foreground mb-4 leading-relaxed'>
-                Nirvana is a family-run plant-based food café dedicated to conscious nutrition and spiritual ambiance. Located in the heart of Riga, we celebrate the incredible potential of plant-based cuisine with thoughtful preparation and premium ingredients.
+                {t('ourStoryDescription')}
               </p>
               <p className='text-lg text-muted-foreground mb-6 leading-relaxed'>
-                We serve both cooked and raw food options, offering three daily main dishes that you can customize to your preferences. Every dish is crafted with intention, respecting both your health and the environment. Our cozy atmosphere, chill music, and carefully selected teas create the perfect setting for mindful dining.
+                {t('ourStoryDescription2')}
               </p>
-              <Button className='button-organic'>Learn More</Button>
+              <Button className='button-organic'>{t('learnMore')}</Button>
             </motion.div>
 
             <motion.div
@@ -177,17 +194,17 @@ export default function Home() {
             className='text-center mb-16'
           >
             <h2 className='text-4xl md:text-5xl font-serif font-bold text-foreground mb-4'>
-              Our Menu
+              {t('ourMenu')}
             </h2>
             <div className='organic-divider mb-8 max-w-xs mx-auto' />
             <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
-              Three daily options for main dishes with the flexibility to mix and customize. Explore our selection of thoughtfully prepared plant-based meals.
+              {t('ourMenuDescription')}
             </p>
           </motion.div>
 
           {/* Filter Tabs */}
           <div className='flex justify-center gap-4 mb-12 flex-wrap'>
-            {['all', 'mains', 'salads', 'desserts'].map((tab) => (
+            {(['all', 'mains', 'salads', 'desserts'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -197,7 +214,7 @@ export default function Home() {
                     : 'bg-muted text-foreground hover:bg-secondary'
                 }`}
               >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {categoryLabels[tab]}
               </button>
             ))}
           </div>
@@ -216,21 +233,21 @@ export default function Home() {
                   <div className='relative h-64 overflow-hidden'>
                     <img
                       src={item.image}
-                      alt={item.name}
+                      alt={t(item.nameKey)}
                       className='w-full h-full object-cover hover:scale-105 transition-transform duration-300'
                     />
                   </div>
                   <div className='p-6'>
                     <div className='flex justify-between items-start mb-3'>
                       <h3 className='text-xl font-serif font-semibold text-foreground'>
-                        {item.name}
+                        {t(item.nameKey)}
                       </h3>
                       <span className='text-lg font-semibold text-primary'>
                         {item.price}
                       </span>
                     </div>
                     <p className='text-muted-foreground mb-4 text-sm leading-relaxed'>
-                      {item.description}
+                      {t(item.descKey)}
                     </p>
                     <div className='flex items-center gap-1'>
                       {[...Array(5)].map((_, i) => (
@@ -258,7 +275,7 @@ export default function Home() {
             viewport={{ once: true }}
             className='mt-16 text-center'
           >
-            <p className='text-muted-foreground mb-6'>Order online through our partners:</p>
+            <p className='text-muted-foreground mb-6'>{t('orderOnlinePartners')}</p>
             <div className='flex gap-4 justify-center flex-wrap'>
               <a
                 href='https://wolt.com'
@@ -292,7 +309,7 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className='text-4xl md:text-5xl font-serif font-bold text-foreground mb-6'>
-                Visit <span className='text-primary'>Nirvana</span>
+                {t('visitNirvana')}
               </h2>
               <div className='organic-divider mb-8' />
               
@@ -302,8 +319,8 @@ export default function Home() {
                     <MapPin className='text-primary' size={24} />
                   </div>
                   <div>
-                    <h3 className='font-semibold text-foreground mb-1'>Location</h3>
-                    <p className='text-muted-foreground'>Skolas iela 22, Centra rajons, Riga, LV-1010</p>
+                    <h3 className='font-semibold text-foreground mb-1'>{t('location')}</h3>
+                    <p className='text-muted-foreground'>{t('locationAddress')}</p>
                   </div>
                 </div>
 
@@ -312,9 +329,9 @@ export default function Home() {
                     <Clock className='text-primary' size={24} />
                   </div>
                   <div>
-                    <h3 className='font-semibold text-foreground mb-1'>Hours</h3>
-                    <p className='text-muted-foreground'>Tue-Sun: 12:00 PM - 6:00 PM</p>
-                    <p className='text-muted-foreground text-sm'>Closed Mondays</p>
+                    <h3 className='font-semibold text-foreground mb-1'>{t('hours')}</h3>
+                    <p className='text-muted-foreground'>{t('hoursTime')}</p>
+                    <p className='text-muted-foreground text-sm'>{t('hoursClosed')}</p>
                   </div>
                 </div>
 
@@ -323,11 +340,11 @@ export default function Home() {
                     <Phone className='text-primary' size={24} />
                   </div>
                   <div>
-                    <h3 className='font-semibold text-foreground mb-1'>Contact</h3>
+                    <h3 className='font-semibold text-foreground mb-1'>{t('contact')}</h3>
                     <p className='text-muted-foreground'>+371 24 225 312</p>
                     <p className='text-muted-foreground text-sm'>
                       <a href='https://facebook.com' target='_blank' rel='noopener noreferrer' className='text-primary hover:underline'>
-                        View Menu on Facebook
+                        {t('viewMenuOnFacebook')}
                       </a>
                     </p>
                   </div>
@@ -336,15 +353,15 @@ export default function Home() {
 
               <div className='mt-8 p-6 bg-white rounded-lg border border-border'>
                 <p className='text-sm text-muted-foreground mb-4'>
-                  <strong>Price Range:</strong> €10-15 per person
+                  <strong>{t('priceRange')}:</strong> {t('priceRangeValue')}
                 </p>
                 <p className='text-sm text-muted-foreground'>
-                  <strong>Service Options:</strong> Outdoor seating, Vegan options, Wi-Fi
+                  <strong>{t('serviceOptions')}:</strong> {t('serviceOptionsValue')}
                 </p>
               </div>
 
               <Button className='button-organic mt-8 w-full md:w-auto'>
-                Call to Reserve
+                {t('callToReserve')}
               </Button>
             </motion.div>
 
@@ -358,11 +375,11 @@ export default function Home() {
               <div className='absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl blur-3xl' />
               <Card className='relative bg-white border border-border p-8'>
                 <h3 className='text-2xl font-serif font-semibold text-foreground mb-6'>
-                  Quick Info
+                  {t('quickInfo')}
                 </h3>
                 <div className='space-y-4'>
                   <div>
-                    <p className='text-sm font-semibold text-muted-foreground mb-2'>GOOGLE RATING</p>
+                    <p className='text-sm font-semibold text-muted-foreground mb-2'>{t('googleRating')}</p>
                     <div className='flex items-center gap-2'>
                       <div className='flex gap-1'>
                         {[...Array(5)].map((_, i) => (
@@ -375,14 +392,14 @@ export default function Home() {
                   </div>
                   
                   <div className='border-t border-border pt-4'>
-                    <p className='text-sm font-semibold text-muted-foreground mb-2'>TOTAL REVIEWS</p>
+                    <p className='text-sm font-semibold text-muted-foreground mb-2'>{t('totalReviews')}</p>
                     <p className='text-2xl font-bold text-primary'>4,839+</p>
                   </div>
 
                   <div className='border-t border-border pt-4'>
-                    <p className='text-sm font-semibold text-muted-foreground mb-2'>DESCRIPTION</p>
+                    <p className='text-sm font-semibold text-muted-foreground mb-2'>{t('description')}</p>
                     <p className='text-sm text-foreground italic'>
-                      "Family run plant-based food Cafe, serves also Raw food."
+                      {t('descriptionText')}
                     </p>
                   </div>
                 </div>
@@ -403,11 +420,11 @@ export default function Home() {
             className='text-center mb-16'
           >
             <h2 className='text-4xl md:text-5xl font-serif font-bold text-foreground mb-4'>
-              Guest Reviews
+              {t('guestReviews')}
             </h2>
             <div className='organic-divider mb-8 max-w-xs mx-auto' />
             <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
-              Hear from our community of plant-based food enthusiasts
+              {t('guestReviewsDescription')}
             </p>
           </motion.div>
 
@@ -427,11 +444,11 @@ export default function Home() {
                     ))}
                   </div>
                   <p className='text-foreground mb-6 leading-relaxed italic'>
-                    "{review.text}"
+                    "{t(review.textKey)}"
                   </p>
                   <div className='border-t border-border pt-4'>
-                    <p className='font-semibold text-foreground'>{review.name}</p>
-                    <p className='text-sm text-muted-foreground'>{review.date}</p>
+                    <p className='font-semibold text-foreground'>{t(review.nameKey)}</p>
+                    <p className='text-sm text-muted-foreground'>{t(review.dateKey)}</p>
                     <p className='text-xs text-primary font-medium mt-1'>From {review.source}</p>
                   </div>
                 </Card>
@@ -452,26 +469,26 @@ export default function Home() {
                   alt='Nirvana'
                   className='w-8 h-8'
                 />
-                <h3 className='font-serif text-lg font-bold'>Nirvana</h3>
+                <h3 className='font-serif text-lg font-bold'>{t('nirvana')}</h3>
               </div>
-              <p className='text-sm opacity-80'>Family-run plant-based dining experience in Riga</p>
+              <p className='text-sm opacity-80'>{t('familyRunDesc')}</p>
             </div>
             <div>
-              <h4 className='font-semibold mb-4'>Hours</h4>
+              <h4 className='font-semibold mb-4'>{t('hours')}</h4>
               <ul className='text-sm opacity-80 space-y-1'>
-                <li>Tue-Sun: 12:00 PM - 6:00 PM</li>
-                <li>Closed Mondays</li>
+                <li>{t('hoursTime')}</li>
+                <li>{t('hoursClosed')}</li>
               </ul>
             </div>
             <div>
-              <h4 className='font-semibold mb-4'>Contact</h4>
+              <h4 className='font-semibold mb-4'>{t('contact')}</h4>
               <ul className='text-sm opacity-80 space-y-1'>
                 <li>+371 24 225 312</li>
-                <li>Skolas iela 22, Riga</li>
+                <li>{t('locationAddress')}</li>
               </ul>
             </div>
             <div>
-              <h4 className='font-semibold mb-4'>Order Online</h4>
+              <h4 className='font-semibold mb-4'>{t('orderOnline')}</h4>
               <ul className='text-sm opacity-80 space-y-1'>
                 <li><a href='https://wolt.com' target='_blank' rel='noopener noreferrer' className='hover:opacity-100 transition'>Wolt</a></li>
                 <li><a href='https://bolt.eu' target='_blank' rel='noopener noreferrer' className='hover:opacity-100 transition'>Bolt Food</a></li>
@@ -480,7 +497,7 @@ export default function Home() {
             </div>
           </div>
           <div className='border-t border-primary-foreground/20 pt-8 text-center text-sm opacity-80'>
-            <p>&copy; 2024 Nirvana. All rights reserved.</p>
+            <p>{t('allRightsReserved')}</p>
           </div>
         </div>
       </footer>
