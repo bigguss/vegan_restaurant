@@ -122,7 +122,7 @@ export async function getAvailabilityForDate(dateStr: string) {
 
     const availability: Record<string, number> = {};
     result.forEach((row) => {
-      availability[row.reservationTime] = row.totalGuests || 0;
+      availability[row.reservationTime] = Number(row.totalGuests) || 0;
     });
 
     return availability;

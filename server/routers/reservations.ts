@@ -23,6 +23,10 @@ export const reservationsRouter = router({
         const bookedGuests = availability[input.time] || 0;
         const totalGuests = bookedGuests + input.guests;
 
+        console.log(`[DEBUG] Date: ${input.date}, Time: ${input.time}`);
+        console.log(`[DEBUG] Availability:`, availability);
+        console.log(`[DEBUG] Booked: ${bookedGuests}, New: ${input.guests}, Total: ${totalGuests}`);
+
         if (totalGuests > 20) {
           throw new Error('This time slot is fully booked. Please select another time.');
         }
