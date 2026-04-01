@@ -28,8 +28,12 @@ export const reservationsRouter = router({
         }
 
         // Save reservation to database
+        // Parse the date string and create a UTC date to avoid timezone issues
+        const [year, month, day] = input.date.split('-').map(Number);
+        const utcDate = new Date(Date.UTC(year, month - 1, day));
+        
         await createReservation({
-          reservationDate: new Date(input.date),
+          reservationDate: utcDate,
           reservationTime: input.time,
           guestName: input.name,
           guestPhone: input.phone,
