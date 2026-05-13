@@ -3,7 +3,7 @@ export type Language = 'lv' | 'en';
 export const translations = {
   lv: {
     // Navigation
-    ourStory: 'Mūsu Stāsts',
+    ourStory: 'Mūsu Ceļš',
     menu: 'Ēdienkartes',
     reservations: 'Rezervācijas',
     reviews: 'Atsauksmes',
@@ -15,7 +15,7 @@ export const translations = {
     scrollToExplore: 'Ritiniet, lai izpētītu',
 
     // Our Story Section
-    ourStoryTitle: 'Mūsu Stāsts',
+    ourStoryTitle: 'Mūsu Ceļš',
     ourStoryDescription: 'Nirvana ir ģimenes vadīta augu bāzes ēdienkarti, kas veltīta apzinātai uzturam un garīgai atmosfērai. Rīgas sirdī mēs svinējam augu bāzes ēdiena neticamos iespējas ar pārdomātu pagatavošanu un augstākās kvalitātes sastāvdaļām.',
     ourStoryDescription2: 'Mēs piedāvājam gan gatavotus, gan neapstrādātus ēdienus, piedāvājot trīs ikdienas galvenos ēdienus, kurus varat pielāgot savām vēlmēm. Katrs ēdiens ir izgatavots ar nolūku, ņemot vērā jūsu veselību un vidi. Mūsu ērti interjers, relaksējoša mūzika un rūpīgi atlasīti tēji rada ideālu atmosfēru apzinātam ēdienam.',
     learnMore: 'Uzziniet vairāk',
