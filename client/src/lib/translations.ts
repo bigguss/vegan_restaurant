@@ -16,7 +16,7 @@ export const translations = {
 
     // Our Story Section
     ourStoryTitle: 'Mūsu Ceļš',
-    ourStoryDescription: 'Nirvana ir ģimenes vadīta augu bāzes ēdienkarti, kas veltīta apzinātai uzturam un garīgai atmosfērai. Rīgas sirdī mēs svinējam augu bāzes ēdiena neticamos iespējas ar pārdomātu pagatavošanu un augstākās kvalitātes sastāvdaļām.',
+    ourStoryDescription: 'nirvana raw ir ģimenes vadīta augu bāzes ēdienkarti, kas veltīta apzinātai uzturam un garīgai atmosfērai. Rīgas sirdī mēs svinējam augu bāzes ēdiena neticamos iespējas ar pārdomātu pagatavošanu un augstākās kvalitātes sastāvdaļām.',
     ourStoryDescription2: 'Mēs piedāvājam gan gatavotus, gan neapstrādātus ēdienus, piedāvājot trīs ikdienas galvenos ēdienus, kurus varat pielāgot savām vēlmēm. Katrs ēdiens ir izgatavots ar nolūku, ņemot vērā jūsu veselību un vidi. Mūsu ērti interjers, relaksējoša mūzika un rūpīgi atlasīti tēji rada ideālu atmosfēru apzinātam ēdienam.',
     learnMore: 'Uzziniet vairāk',
 
@@ -41,7 +41,7 @@ export const translations = {
     chocolateMousseDesc: 'Vegāns šokolādes mousse ar svaigiem ogām un mētru',
 
     // Reservations Section
-    visitNirvana: 'Apmeklējiet Nirvanu',
+    visitNirvana: 'Apmeklējiet nirvana raw',
     location: 'Atrašanās vieta',
     locationAddress: 'Skolas iela 22, Centra rajons, Rīga, LV-1010',
     hours: 'Darba laiks',
@@ -62,9 +62,9 @@ export const translations = {
     // Reviews Section
     guestReviews: 'Viešu Atsauksmes',
     guestReviewsDescription: 'Dzirdiet no mūsu kopienas augu bāzes ēdiena entuziastu',
-    review1: 'Šis mazais Nirvanas gabals patiešām attaisno vārdu. Ir ērti interjers, relaksējoša mūzika, lielisks tējs, brīnišķīgi bezglutēna kūki un diezgan lieli porcijas.',
+    review1: 'Šis mazais nirvana raw gabals patiešām attaisno vārdu. Ir ērti interjers, relaksējoša mūzika, lielisks tējs, brīnišķīgi bezglutēna kūki un diezgan lieli porcijas.',
     review2: 'Šī vieta ir PĀRSTEIDZOŠA, vārdi nevar aprakstīt, cik daudz es to mīlu. Viņiem ir trīs ikdienas iespējas galvenajiem ēdienam un jūs varat arī tos sajaukt, un vairākas kūka iespējas.',
-    review3: 'Man patika Nirvana agrāk par viņu apzinātā pieeja pret uzturu, garīgo atmosfēru un vispārējo ēdiena piedāvājuma kvalitāti. Ļoti ieteicu!',
+    review3: 'Man patika nirvana raw agrāk par viņu apzinātā pieeja pret uzturu, garīgo atmosfēru un vispārējo ēdiena piedāvājuma kvalitāti. Ļoti ieteicu!',
     ahimsaKerp: 'Ahimsa Kerp',
     madeleineSoukup: 'Madeleine Soukup',
     aitalinaSruchkova: 'Aitalina Struchkova',
@@ -93,7 +93,7 @@ export const translations = {
 
     // Our Story Section
     ourStoryTitle: 'Our Story',
-    ourStoryDescription: 'Nirvana is a family-run plant-based food café dedicated to conscious nutrition and spiritual ambiance. Located in the heart of Riga, we celebrate the incredible potential of plant-based cuisine with thoughtful preparation and premium ingredients.',
+    ourStoryDescription: 'nirvana raw is a family-run plant-based food café dedicated to conscious nutrition and spiritual ambiance. Located in the heart of Riga, we celebrate the incredible potential of plant-based cuisine with thoughtful preparation and premium ingredients.',
     ourStoryDescription2: 'We serve both cooked and raw food options, offering three daily main dishes that you can customize to your preferences. Every dish is crafted with intention, respecting both your health and the environment. Our cozy atmosphere, chill music, and carefully selected teas create the perfect setting for mindful dining.',
     learnMore: 'Learn More',
 
@@ -118,7 +118,7 @@ export const translations = {
     chocolateMousseDesc: 'Vegan chocolate mousse with fresh berries and mint',
 
     // Reservations Section
-    visitNirvana: 'Visit Nirvana',
+    visitNirvana: 'Visit nirvana raw',
     location: 'Location',
     locationAddress: 'Skolas iela 22, Centra rajons, Riga, LV-1010',
     hours: 'Hours',
@@ -139,9 +139,9 @@ export const translations = {
     // Reviews Section
     guestReviews: 'Guest Reviews',
     guestReviewsDescription: 'Hear from our community of plant-based food enthusiasts',
-    review1: 'This little slice of Nirvana really lives up to the name. There\'s a cozy atmosphere, chill music, great tea, awesome gluten free cakes, and rather huge portions.',
+    review1: 'This little slice of nirvana raw really lives up to the name. There\'s a cozy atmosphere, chill music, great tea, awesome gluten free cakes, and rather huge portions.',
     review2: 'This place is AMAZING, words cannot describe how much I love it. They have three daily options for main dishes and you can also mix it, and several cake options.',
-    review3: 'I liked Nirvana before for their conscious approach towards nutrition, spiritual ambiance, and overall quality offering of food. Highly recommend!',
+    review3: 'I liked nirvana raw before for their conscious approach towards nutrition, spiritual ambiance, and overall quality offering of food. Highly recommend!',
     ahimsaKerp: 'Ahimsa Kerp',
     madeleineSoukup: 'Madeleine Soukup',
     aitalinaSruchkova: 'Aitalina Struchkova',
