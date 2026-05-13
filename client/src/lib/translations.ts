@@ -10,7 +10,7 @@ export const translations = {
     reserve: 'Rezervēt',
 
     // Hero
-    nirvana: 'Nirvana',
+    nirvana: 'nirvana raw',
     familyRunPlantBased: 'Ģimenes vadīts augu bāzes ēdiens',
     scrollToExplore: 'Ritiniet, lai izpētītu',
 
@@ -76,7 +76,7 @@ export const translations = {
     // Footer
     familyRunDesc: 'Ģimenes vadīta augu bāzes ēdienkarti Rīgā',
     viewMenuOnFacebook: 'Skatīt ēdienkarti Facebook',
-    allRightsReserved: '© 2024 Nirvana. Visas tiesības paturētas.',
+    allRightsReserved: '© 2024 nirvana raw. Visas tiesības paturētas.',
   },
   en: {
     // Navigation
@@ -87,7 +87,7 @@ export const translations = {
     reserve: 'Reserve',
 
     // Hero
-    nirvana: 'Nirvana',
+    nirvana: 'nirvana raw',
     familyRunPlantBased: 'Family-Run Plant-Based Cuisine',
     scrollToExplore: 'Scroll to explore',
 
@@ -153,7 +153,7 @@ export const translations = {
     // Footer
     familyRunDesc: 'Family-run plant-based dining experience in Riga',
     viewMenuOnFacebook: 'View Menu on Facebook',
-    allRightsReserved: '© 2024 Nirvana. All rights reserved.',
+    allRightsReserved: '© 2024 nirvana raw. All rights reserved.',
   },
 };
 
